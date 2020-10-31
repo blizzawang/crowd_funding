@@ -30,6 +30,25 @@
         <property name="mapperLocations" value="classpath:mappers/*.xml"/>
         <!-- 数据源 -->
         <property name="dataSource" ref="dataSource"/>
+        <!-- 配置插件 -->
+        <property name="plugins">
+            <array>
+                <!-- 引入PageHelper -->
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <props>
+                            <!-- 配置数据库方言，告知PageHelper当前使用的数据库类型 -->
+                            <prop key="dialect">mysql</prop>
+                            <!--
+                                配置页码的合理化修正，在1~总页数之间修正页码
+                                比如用户要跳转第5页，而总页数仅有3也，此时跳转至最后一页即可
+                            -->
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <!-- 配置接口扫描 -->

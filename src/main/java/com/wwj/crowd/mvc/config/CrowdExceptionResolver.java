@@ -2,6 +2,8 @@ package com.wwj.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.wwj.crowd.exception.LoginFailedException;
+import com.wwj.crowd.util.CrowdConstant;
 import com.wwj.crowd.util.CrowdUtil;
 import com.wwj.crowd.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +17,22 @@ import java.io.IOException;
 
 @ControllerAdvice   //标注当前类为异常处理类
 public class CrowdExceptionResolver {
+
+    /**
+     * 处理登录异常
+     * @param exception
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @ExceptionHandler(value = LoginFailedException.class)
+    public ModelAndView resolverLoginFailedException(LoginFailedException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //当抛出登录异常时，让用户重新回到登录页面
+        String viewName = "admin-login";
+        return commonResolver(viewName,exception,request,response);
+    }
+
 
     /**
      * 将一个具体的异常与方法关联起来，当出现该异常时，执行此方法
@@ -38,7 +56,7 @@ public class CrowdExceptionResolver {
      * @return
      * @throws IOException
      */
-    @ExceptionHandler(value = NullPointerException.class)
+    @ExceptionHandler(value = ArithmeticException.class)
     public ModelAndView resolverArithmeticException(ArithmeticException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String viewName = "system-error";
         return commonResolver(viewName,exception,request,response);
@@ -67,7 +85,7 @@ public class CrowdExceptionResolver {
         //如果是普通请求
         ModelAndView modelAndView = new ModelAndView();
         //封装异常信息
-        modelAndView.addObject("exception",exception);
+        modelAndView.addObject(CrowdConstant.ATTR_NAME_EXCEPTION,exception);
         //设置视图
         modelAndView.setViewName(viewName);
         return modelAndView;

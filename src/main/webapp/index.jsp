@@ -20,11 +20,19 @@
     <h3>测试@RequestBody</h3>
     <button id="btn1">Send [1,2,3] First</button>
     <button id="btn2">Send [1,2,3] Second</button>
+
+    <button id="btn3">点我弹框</button>
 </body>
 
 <script src="jquery/jquery-2.1.1.min.js"></script>
+<script src="layer/layer.js"></script>
 <script>
     $(function () {
+
+        $("#btn3").click(function () {
+            layer.msg("layer的弹框");
+        });
+
         $("#btn1").click(function () {
             // $.get(); $.post();
             $.ajax({

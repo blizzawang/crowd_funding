@@ -34,8 +34,7 @@ public class TestController {
         List<Admin> adminList = adminService.getAll();
         map.put("adminList",adminList);
 
-        String a = null;
-        System.out.println(a.length());
+        System.out.println(1 / 0);
 
         return "target";
     }

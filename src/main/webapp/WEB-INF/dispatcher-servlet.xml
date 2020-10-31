@@ -30,4 +30,22 @@
             </props>
         </property>
     </bean>
+
+    <!-- 配置view-controller，直接将请求和地址关联起来 -->
+    <mvc:view-controller path="/admin/do/login" view-name="admin-login"/>
+    <mvc:view-controller path="/admin/to/main/page" view-name="admin-main"/>
+    <mvc:view-controller path="/admin/to/login/page" view-name="admin-login"/>
+
+    <!-- 注册拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 需要拦截的资源 -->
+            <mvc:mapping path="/**"/>
+            <!-- 无需拦截的资源 -->
+            <mvc:exclude-mapping path="/admin/to/login/page"/>
+            <mvc:exclude-mapping path="/admin/do/login"/>
+            <mvc:exclude-mapping path="/admin/do/logout"/>
+            <bean class="com.wwj.crowd.mvc.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
