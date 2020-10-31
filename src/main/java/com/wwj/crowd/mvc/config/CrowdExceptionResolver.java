@@ -2,10 +2,12 @@ package com.wwj.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.wwj.crowd.exception.LoginAcctAlreadyInUseException;
 import com.wwj.crowd.exception.LoginFailedException;
 import com.wwj.crowd.util.CrowdConstant;
 import com.wwj.crowd.util.CrowdUtil;
 import com.wwj.crowd.util.ResultEntity;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +19,13 @@ import java.io.IOException;
 
 @ControllerAdvice   //标注当前类为异常处理类
 public class CrowdExceptionResolver {
+
+    @ExceptionHandler(value = LoginAcctAlreadyInUseException.class)
+    public ModelAndView resolverLoginAcctAlreadyInUseException(LoginAcctAlreadyInUseException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //当抛出登录账号重复异常时，让用户重新回到新建用户页面
+        String viewName = "admin-add";
+        return commonResolver(viewName,exception,request,response);
+    }
 
     /**
      * 处理登录异常

@@ -31,9 +31,9 @@
                     <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
                             class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-primary" style="float:right;"
-                            onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
+                    <a href="admin/to/add/page" class="btn btn-primary" style="float:right;">
+                        <i class="glyphicon glyphicon-plus"></i> 新增
+                    </a>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -69,7 +69,8 @@
                                             <a class="btn btn-primary btn-xs">
                                                 <i class=" glyphicon glyphicon-pencil"></i>
                                             </a>
-                                            <a href="admin/remove/${admin.id}/${requestScope.pageInfo.pageNum}/${param.keyword}" class="btn btn-danger btn-xs">
+                                            <a href="admin/remove/${admin.id}/${requestScope.pageInfo.pageNum}/${param.keyword}"
+                                               class="btn btn-danger btn-xs">
                                                 <i class=" glyphicon glyphicon-remove"></i>
                                             </a>
                                         </td>

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.wwj.crowd.bean.Admin;
 import com.wwj.crowd.service.api.AdminService;
 import com.wwj.crowd.util.CrowdConstant;
+import com.wwj.crowd.util.CrowdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 @Controller
@@ -81,6 +84,14 @@ public class AdminController {
         return "admin-page";
     }
 
+    /**
+     * 删除单个用户信息
+     * @param adminId
+     * @param pageNum
+     * @param keyword
+     * @param session
+     * @return
+     */
     @RequestMapping(value = {
             "/admin/remove/{adminId}/{pageNum}/{keyword}",
             "/admin/remove/{adminId}/{pageNum}"
@@ -105,5 +116,17 @@ public class AdminController {
             keyword = "";
         }
         return "redirect:/admin/get/page?pageNum=" + pageNum + "&keyword=" + keyword;
+    }
+
+    /**
+     * 新建用户信息
+     * @param admin
+     * @return
+     */
+    @RequestMapping("/admin/save")
+    public String save(Admin admin){
+        adminService.saveAdmin(admin);
+        //新建用户信息后，直接跳转至最后一页查看新建的用户信息
+        return "redirect:/admin/get/page?pageNum=" + Integer.MAX_VALUE;
     }
 }
