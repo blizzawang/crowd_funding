@@ -66,7 +66,7 @@
                                             <a class="btn btn-success btn-xs">
                                                 <i class=" glyphicon glyphicon-check"></i>
                                             </a>
-                                            <a class="btn btn-primary btn-xs">
+                                            <a href="admin/to/edit/page?adminId=${admin.id}&pageNum=${requestScope.pageInfo.pageNum}&keyword=${param.keyword}" class="btn btn-primary btn-xs">
                                                 <i class=" glyphicon glyphicon-pencil"></i>
                                             </a>
                                             <a href="admin/remove/${admin.id}/${requestScope.pageInfo.pageNum}/${param.keyword}"

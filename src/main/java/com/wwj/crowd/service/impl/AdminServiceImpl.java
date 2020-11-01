@@ -6,6 +6,7 @@ import com.wwj.crowd.bean.Admin;
 import com.wwj.crowd.bean.AdminExample;
 import com.wwj.crowd.dao.AdminMapper;
 import com.wwj.crowd.exception.LoginAcctAlreadyInUseException;
+import com.wwj.crowd.exception.LoginAcctAlreadyInUseForUpdateException;
 import com.wwj.crowd.exception.LoginFailedException;
 import com.wwj.crowd.service.api.AdminService;
 import com.wwj.crowd.util.CrowdConstant;
@@ -119,5 +120,33 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void remove(Integer adminId) {
         adminMapper.deleteByPrimaryKey(adminId);
+    }
+
+    /**
+     * 根据ID查询用户
+     * @param adminId
+     * @return
+     */
+    @Override
+    public Admin getAdminById(Integer adminId) {
+        return adminMapper.selectByPrimaryKey(adminId);
+    }
+
+    /**
+     * 更新用户信息
+     * @param admin
+     */
+    @Override
+    public void update(Admin admin) {
+        try {
+            //有选择地更新，即对于空字段不更新
+            adminMapper.updateByPrimaryKeySelective(admin);
+        } catch (Exception e) {
+            //更新需要考虑用户修改的数据是否和数据表中的数据重复，若如此，抛出异常
+            e.printStackTrace();
+            if(e instanceof DuplicateKeyException){
+                throw new LoginAcctAlreadyInUseForUpdateException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
     }
 }

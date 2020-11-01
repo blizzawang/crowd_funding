@@ -3,6 +3,7 @@ package com.wwj.crowd.mvc.config;
 import com.google.gson.Gson;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.wwj.crowd.exception.LoginAcctAlreadyInUseException;
+import com.wwj.crowd.exception.LoginAcctAlreadyInUseForUpdateException;
 import com.wwj.crowd.exception.LoginFailedException;
 import com.wwj.crowd.util.CrowdConstant;
 import com.wwj.crowd.util.CrowdUtil;
@@ -20,6 +21,29 @@ import java.io.IOException;
 @ControllerAdvice   //标注当前类为异常处理类
 public class CrowdExceptionResolver {
 
+    /**
+     * 处理更新用户时登录名重复的异常
+     * @param exception
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @ExceptionHandler(value = LoginAcctAlreadyInUseForUpdateException.class)
+    public ModelAndView resolverLoginAcctAlreadyInUseForUpdateException(LoginAcctAlreadyInUseForUpdateException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //当抛出登录账号重复异常时，让用户来到错误信息页面
+        String viewName = "system-error";
+        return commonResolver(viewName,exception,request,response);
+    }
+
+    /**
+     * 处理新增用户时登录名重复的异常
+     * @param exception
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @ExceptionHandler(value = LoginAcctAlreadyInUseException.class)
     public ModelAndView resolverLoginAcctAlreadyInUseException(LoginAcctAlreadyInUseException exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //当抛出登录账号重复异常时，让用户重新回到新建用户页面

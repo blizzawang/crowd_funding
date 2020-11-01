@@ -129,4 +129,34 @@ public class AdminController {
         //新建用户信息后，直接跳转至最后一页查看新建的用户信息
         return "redirect:/admin/get/page?pageNum=" + Integer.MAX_VALUE;
     }
+
+    /**
+     * 跳转至更新页面
+     * @param adminId
+     * @param map
+     * @return
+     */
+    @RequestMapping("/admin/to/edit/page")
+    public String toEditPage(@RequestParam("adminId") Integer adminId, ModelMap map){
+        //根据ID查询用户信息
+        Admin admin = adminService.getAdminById(adminId);
+        //存入请求域
+        map.addAttribute("admin",admin);
+        //跳转至更新页面
+        return "admin-edit";
+    }
+
+    /**
+     * 更新用户信息
+     * @return
+     */
+    @RequestMapping("/admin/update")
+    public String update(
+            Admin admin,
+            @RequestParam("pageNum") Integer pageNum,
+            @RequestParam("keyword") String keyword
+    ){
+        adminService.update(admin);
+        return "redirect:/admin/get/page?pageNum=" + pageNum + "&keyword=" + keyword;
+    }
 }

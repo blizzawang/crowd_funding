@@ -1,7 +1,7 @@
 package com.wwj.crowd.exception;
 
 /**
- * 保存或更新Admin时，若检测到登录账号重复抛出此异常
+ * 保存Admin时，若检测到登录账号重复抛出此异常
  */
 public class LoginAcctAlreadyInUseException extends RuntimeException {
 
