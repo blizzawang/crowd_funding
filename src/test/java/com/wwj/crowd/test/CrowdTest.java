@@ -1,7 +1,9 @@
 package com.wwj.crowd.test;
 
 import com.wwj.crowd.bean.Admin;
+import com.wwj.crowd.bean.Role;
 import com.wwj.crowd.dao.AdminMapper;
+import com.wwj.crowd.dao.RoleMapper;
 import com.wwj.crowd.service.api.AdminService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +28,9 @@ public class CrowdTest {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Test
     public void testConnection() throws Exception{
@@ -61,6 +66,14 @@ public class CrowdTest {
         for(int i = 0;i < 222;++i){
             Admin admin = new Admin(null, "loginAcct" + i, "userPwd" + i, "userName" + i, "email" + i, null);
             adminMapper.insert(admin);
+        }
+    }
+
+    @Test
+    public void testRoleSave(){
+        for(int i = 0;i < 223;++i){
+            Role role = new Role(null, "role" + i);
+            roleMapper.insert(role);
         }
     }
 }

@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <script src="jquery/jquery-2.1.1.min.js"></script>
+    <script src="layer/layer.js"></script>
     <style>
         .tree li {
             list-style-type: none;

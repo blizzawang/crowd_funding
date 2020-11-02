@@ -19,5 +19,7 @@ public class CrowdConstant {
 
     public static final String ATTR_NAME_PAGE_INFO = "pageInfo";
 
+    public static final String ATTR_NAME_ROLE_PAGE_INFO = "role_pageInfo";
+
     public static final String MESSAGE_ADMIN_REMOVE_STATUS = "这是当前登录的用户，不允许删除!";
 }
